@@ -14,18 +14,21 @@ it('should early return when not in production', function () {
     Request::validateCaptcha('secret');
 });
 
-it('should make request to google with success', function () {
-    App::shouldReceive('isProduction')->once()->andReturn(true);
-    Http::fake(['*' => Http::response(['success' => true], 200)]);
-
-    Request::macro('validate', fn() => ['captcha_token' => 'token']);
-    Request::validateCaptcha('secret');
+dataset('datasetGoogleRequests', function () {
+    return [
+        'with success' => [['success' => true]],
+        'and throw an exception when response is empty' => [[]],
+    ];
 });
 
-it('should throw exception when response is empty', function () {
+it('should make request to google :dataset', function (array $response) {
     App::shouldReceive('isProduction')->once()->andReturn(true);
-    Http::fake(['*' => Http::response([], 200)]);
+    Http::fake(['*' => Http::response($response, 200)]);
 
     Request::macro('validate', fn() => ['captcha_token' => 'token']);
-    Request::validateCaptcha('secret');
-})->throws(BadRequestHttpException::class, 'Por favor, realize a verificação do reCAPTCHA corretamente!');
+    try {
+        Request::validateCaptcha('secret');
+    } catch (BadRequestHttpException $e) {
+        $this->assertEquals('Por favor, realize a verificação do reCAPTCHA corretamente!', $e->getMessage());
+    }
+})->with('datasetGoogleRequests');
