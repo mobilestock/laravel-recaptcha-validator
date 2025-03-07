@@ -1,0 +1,35 @@
+{
+  "name": "mobilestock/laravel-recaptcha-validator",
+  "description": "Laravel ReCaptcha Validator is a library that enables you to validate Google Recaptcha v2 in Laravel applications by a macro in Request Facade.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "MobileStock",
+      "email": "fabio@mobilestock.com.br"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MobileStock\\LaravelReCaptchaValidator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "illuminate/support": "^11.23"
+  },
+  "require-dev": {
+    "pestphp/pest": "^3.5",
+    "mockery/mockery": "^1.6",
+    "orchestra/testbench": "^9.9"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
