@@ -5,10 +5,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-it('should check if the ReCaptchaValidatorServiceProvider is booting correctly', function () {
-    $this->assertTrue(true);
-});
-
 it('should early return when not in production', function () {
     App::shouldReceive('isProduction')->once()->andReturn(false);
     Request::validateCaptcha('secret');
