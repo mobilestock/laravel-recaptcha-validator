@@ -1,0 +1,8 @@
+services:
+  laravel-recaptcha-validator:
+    extends:
+      file: docker-compose.base.yml
+      service: pest-base
+    volumes:
+      - './packages/laravel-recaptcha-validator:/laravel-recaptcha-validator'
+    working_dir: /laravel-recaptcha-validator
